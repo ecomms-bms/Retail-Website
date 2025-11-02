@@ -1,4 +1,0 @@
-# Ignore backups and logs
-php_errorlog
-**/php_errorlog
-*.log

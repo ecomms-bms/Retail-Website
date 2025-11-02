@@ -1,0 +1,83 @@
+<?php
+	$mobile_header_style = ot_get_option( 'mobile_header_style', 'style1' );
+
+	$header_class[] = 'header style1';
+	$header_class[] = 'thb-main-header';
+	$header_class[] = 'thb-header-full-width-' . ot_get_option( 'header_fullwidth', 'off' );
+	$header_class[] = ot_get_option( 'header_color', 'light-header' );
+	$header_class[] = 'mobile-header-' . $mobile_header_style;
+
+?>
+<header class="<?php echo esc_attr( implode( ' ', $header_class ) ); ?>">
+	<div class="header-logo-row">
+		
+		<div class="row align-middle">
+			
+			<?php if ( 'style1' === $mobile_header_style ) { ?>
+				<!-- <marquee direction="left" scrollamount="3" class=" hide-for-large shipping-spc" ><a style="color:#fff;" href="tel:01684 298800">Need Help? Call us on 01684 298800 if you're experiencing any issues with shipping on your order.</a></marquee> -->
+				<a class="sub-spc-txt hide-for-large shipping-spc" href="tel:01684 298800">Need Help? Call us on 01684 298800</a>				 
+				<div class="small-2 medium-3 columns hide-for-large">
+					<?php do_action( 'thb_mobile_toggle' ); ?>
+				</div>
+				<div class="small-8 medium-6 large-7 columns mobile-logo-column">
+					<?php do_action( 'thb_logo' ); ?>
+					<?php do_action( 'thb_product_searchform' ); ?>
+				</div>
+				<div class="large-3 columns hide-for-small reg-lookup">
+					<form id="bmstore_vrm_search" class="bmstore-vrm-search" action="/batteries" method="GET">
+						<span class="gb-icon"><img src="/wp-content/uploads/2024/04/gb-icon_new.png" alt=""></span>
+						<input type="text" name="vrm" placeholder="Enter Reg" id="bmstore_search_input" class="bmstore-search-input">
+						<!--<button type="submit" aria-label="Search via registration plate number"><img src="/wp-content/uploads/2020/04/arrow_new.png" alt=""></button>-->
+						<button id="regcheck" aria-label="regcheck" type="submit" aria-label="Search via registration plate number">GO</button>
+					</form>
+				</div>
+				<div class="small-2 medium-3 large-2 columns">
+					<?php do_action( 'thb_secondary_area' ); ?>
+				</div>
+			<?php } else { ?>
+				<div class="small-6 large-8 columns">
+					<?php do_action( 'thb_logo' ); ?>
+					<?php do_action( 'thb_product_searchform' ); ?>
+				</div>
+				<div class="small-6 large-4 columns">
+					<?php do_action( 'thb_secondary_area' ); ?>
+				</div>
+			<?php } ?>
+		</div>
+		<div class="row align-middle">
+		<div class="large-12  hide-for-large reg-lookup  mob-sear" style="margin-bottom: 0px !important;">
+		<?php echo do_shortcode('[fibosearch]'); ?>
+				</div>
+				<div class="large-12  hide-for-large reg-lookup  mob-sear"  style="margin-top: 0px !important;">
+				
+					<form id="bmstore_vrm_search" class="bmstore-vrm-search" action="/batteries" method="GET">
+						<span class="gb-icon"><img src="/wp-content/uploads/2024/04/gb-icon_new.png" alt=""></span>
+						<input type="text" name="vrm" placeholder="Enter Reg" id="bmstore_search_input" class="bmstore-search-input">
+						<button type="submit" aria-label="Search via registration plate number">GO</button>
+					</form>
+				</div>
+		</div>
+	</div>
+	<div class="header-menu-row">
+		<div class="row">
+			<div class="small-12 columns">
+				<div class="thb-navbar">
+					<?php get_template_part( 'inc/templates/header/full-menu' ); ?>
+				</div>
+				<?php
+				if ( has_nav_menu( 'secondary-menu' ) ) {
+					wp_nav_menu(
+						array(
+							'theme_location' => 'secondary-menu',
+							'depth'          => 4,
+							'container'      => false,
+							'menu_class'     => 'thb-header-secondary thb-full-menu',
+							'walker'         => new thb_MegaMenu(),
+						)
+					);
+				}
+				?>
+			</div>
+		</div>
+	</div>
+</header>

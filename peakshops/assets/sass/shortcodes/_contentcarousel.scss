@@ -1,0 +1,49 @@
+/* Content Carousel */
+.thb-content-carousel {
+	.slick-slide {
+		margin-bottom: 0;
+	}
+	&.regular-padding {
+		.slick-slide {
+			margin-right: 10px;
+			margin-left: 10px;
+
+			@include min-break($break-small) {
+				margin-right: 15px;
+				margin-left: 15px;
+			}
+		}
+	}
+	&.medium-padding {
+		.slick-slide {
+			margin-right: 5px;
+			margin-left: 5px;
+
+			@include min-break($break-small) {
+				margin-right: 10px;
+				margin-left: 10px;
+			}
+		}
+	}
+	&.mini-padding {
+		margin: 0 -5px;
+		.slick-slide {
+			margin-right: 5px;
+			margin-left: 5px;
+		}
+	}
+	&.pixel-padding {
+		margin: 0 -1px;
+		.slick-slide {
+			margin-right: 1px;
+			margin-left: 1px;
+		}
+	}
+	&.no-padding {
+		margin: 0;
+		.slick-slide {
+			margin-left: 0;
+			margin-right: 0;
+		}
+	}
+}

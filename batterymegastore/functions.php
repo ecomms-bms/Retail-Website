@@ -1073,17 +1073,17 @@ function my_force_send_failed_order_email( $order_id ) {
 // Hide Failed Orders
 
 //Hide only failed orders from WooCommerce admin orders list
-function wc_hide_failed_orders_from_list( $query ) {
-    global $pagenow, $post_type;
+// function wc_hide_failed_orders_from_list( $query ) {
+//     global $pagenow, $post_type;
 
-    if ( is_admin() && $pagenow === 'edit.php' && $post_type === 'shop_order' && isset( $query->query_vars['post_status'] ) ) {
-        // Remove "failed" from the list of visible statuses
-        if ( is_array( $query->query_vars['post_status'] ) ) {
-            $query->query_vars['post_status'] = array_diff( $query->query_vars['post_status'], array( 'wc-failed' ) );
-        }
-    }
-}
-add_action( 'pre_get_posts', 'wc_hide_failed_orders_from_list' );
+//     if ( is_admin() && $pagenow === 'edit.php' && $post_type === 'shop_order' && isset( $query->query_vars['post_status'] ) ) {
+//         // Remove "failed" from the list of visible statuses
+//         if ( is_array( $query->query_vars['post_status'] ) ) {
+//             $query->query_vars['post_status'] = array_diff( $query->query_vars['post_status'], array( 'wc-failed' ) );
+//         }
+//     }
+// }
+// add_action( 'pre_get_posts', 'wc_hide_failed_orders_from_list' );
 
 
 // Fueltheme reqyuest block
@@ -1534,7 +1534,7 @@ add_action('wp_footer', function() {
 
                 // Add green info message if not exists
                 if (!$('.free-note').length) {
-                    $('<p class="free-note" style="margin-top:10px;color:#007300;font-weight:500;">You have selected Free Collection — no shipping details needed.</p>')
+                    $('<p class="free-note">You have selected Free Collection — no shipping details needed.</p>')
                         .insertAfter('.woocommerce-billing-fields');
                 }
             } 
@@ -1897,6 +1897,22 @@ add_action('template_redirect', function() {
 	}
 });
 
+
+
+// Bots checkout field
+
+add_action( 'woocommerce_after_checkout_billing_form', function() {
+    echo '<div style="display:none;">
+        <label for="anti_bot_field">Leave this field empty</label>
+        <input type="text" name="anti_bot_field" id="anti_bot_field" value="">
+    </div>';
+});
+
+add_action( 'woocommerce_checkout_process', function() {
+    if ( ! empty( $_POST['anti_bot_field'] ) ) {
+        wc_add_notice( 'Bot detected. Please try again.', 'error' );
+    }
+});
 
 
 
